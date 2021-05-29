@@ -1,0 +1,16 @@
+{
+  "name": "icommerce-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "init-db": "./db/init/create-user.sh",
+    "lint": "npm --prefix activities run lint && npm --prefix product run lint && npm --prefix order run lint && npm --prefix gateway run lint && npm --prefix event-bus run lint && npm --prefix share run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/51303014/icommerce.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,55 @@
+version: '3'
+services:
+  activities:
+    build: activities
+    restart: always
+    hostname: activities
+    env_file:
+      - .env.test
+    networks:
+      - backend
+    links:
+      - db
+    ports:
+      - ${TASK_SERVICE_PORT}:${TASK_SERVICE_PORT}
+  order:
+    build: order
+    restart: always
+    hostname: order
+    env_file:
+      - .env.test
+    networks:
+      - backend
+    links:
+      - db
+    ports:
+      - ${TOKEN_SERVICE_PORT}:${TOKEN_SERVICE_PORT}
+  product:
+    build: product
+    restart: always
+    hostname: product
+    env_file:
+      - .env.test
+    networks:
+      - backend
+    links:
+      - db
+    ports:
+      - ${PRODUCT_SERVICE_PORT}:${PRODUCT_SERVICE_PORT}
+  db:
+    image: 'mongo:3.7'
+    restart: always
+    hostname: db
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+    volumes:
+      - "./db/init/:/docker-entrypoint-initdb.d/"
+    networks:
+      - backend
+    env_file:
+      - .env.test
+    ports:
+      - 27017:27017
+networks:
+  backend:
+    driver: bridge
